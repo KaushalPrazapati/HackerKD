@@ -7,7 +7,7 @@
 
 - 📫 How to reach me **kaushalprazapati@gmail.com**
 
-- ⚡ Fun fact **I'm also a Filmaker, storyteller, Video Editor**
+- ⚡ Fun fact **I'm also a Filmmaker, storyteller, Video Editor**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
