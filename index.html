@@ -2,8 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hacker KD | Cinematic Portfolio</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Hacker KD | Portfolio</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,11 +48,16 @@
         --dark: #030303;
       }
 
+      /* Strict overflow control for mobile fit */
+      html,
       body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
         background-color: var(--dark);
         color: #ffffff;
-        overflow-x: hidden;
         cursor: none;
+        position: relative;
       }
 
       ::-webkit-scrollbar {
@@ -94,7 +102,6 @@
         text-shadow: 0 0 30px rgba(34, 211, 238, 0.8);
       }
 
-      /* Cursor z-index increased significantly and animation logic updated */
       .cursor-dot,
       .cursor-outline {
         position: fixed;
@@ -135,7 +142,6 @@
         opacity: 0 !important;
       }
 
-      /* Allow normal typing cursor on inputs */
       input,
       textarea {
         cursor: text !important;
@@ -145,8 +151,8 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         z-index: -1;
         opacity: 0.8;
         pointer-events: none;
@@ -221,7 +227,7 @@
         Connecting to Server
       </p>
       <h1
-        class="text-4xl md:text-6xl font-bold mt-4 tracking-widest font-display text-white"
+        class="text-3xl md:text-6xl font-bold mt-4 tracking-widest font-display text-white"
       >
         HACKER KD
       </h1>
@@ -236,10 +242,10 @@
 
     <!-- Navigation -->
     <nav
-      class="fixed w-full z-40 p-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm"
+      class="fixed w-full z-50 px-4 py-5 md:p-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm"
     >
       <div
-        class="text-xl md:text-2xl font-display font-black tracking-widest text-white text-glow"
+        class="text-xl md:text-2xl font-display font-black tracking-widest text-white text-glow relative z-50"
       >
         HACKER KD
       </div>
@@ -272,52 +278,93 @@
           >Contact</a
         >
       </div>
-      <button class="md:hidden text-white cursor-pointer nav-link">
-        <i class="ph ph-list text-3xl"></i>
+      <button
+        onclick="window.toggleMobileMenu()"
+        class="md:hidden text-white cursor-pointer nav-link relative z-50"
+      >
+        <i id="menuIcon" class="ph ph-list text-3xl"></i>
       </button>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center gap-8 text-xl font-display tracking-widest uppercase opacity-0 pointer-events-none transition-all duration-300 backdrop-blur-xl"
+    >
+      <a
+        href="#about"
+        onclick="window.toggleMobileMenu()"
+        class="hover:text-brand-purple transition-colors"
+        >About</a
+      >
+      <a
+        href="#skills"
+        onclick="window.toggleMobileMenu()"
+        class="hover:text-brand-purple transition-colors"
+        >Skills</a
+      >
+      <a
+        href="#projects"
+        onclick="window.toggleMobileMenu()"
+        class="hover:text-brand-cyan transition-colors"
+        >Work</a
+      >
+      <a
+        href="#certs"
+        onclick="window.toggleMobileMenu()"
+        class="hover:text-brand-pink transition-colors"
+        >Certs</a
+      >
+      <a
+        href="#contact"
+        onclick="window.toggleMobileMenu()"
+        class="hover:text-white transition-colors"
+        >Contact</a
+      >
+    </div>
 
     <!-- MAIN CONTENT -->
     <main class="relative z-10">
       <!-- HERO SECTION -->
       <section
-        class="min-h-screen flex flex-col items-center justify-center px-4 relative pt-20"
+        class="min-h-screen flex flex-col items-center justify-center px-4 relative pt-24 overflow-hidden w-full"
       >
         <div class="text-center w-full max-w-7xl mx-auto gs-reveal">
           <p
-            class="text-brand-purple tracking-[0.4em] text-sm md:text-md mb-4 uppercase font-display font-bold"
+            class="text-brand-purple tracking-[0.2em] md:tracking-[0.4em] text-xs md:text-sm mb-4 uppercase font-display font-bold"
           >
             Multi-Skilled Creator
           </p>
 
+          <!-- Font size carefully controlled for mobile fit -->
           <h1
-            class="text-[12vw] md:text-[8vw] lg:text-[7vw] font-black tracking-tighter leading-[0.9] font-display uppercase mb-6 drop-shadow-2xl"
+            class="text-5xl sm:text-6xl md:text-[8vw] lg:text-[7vw] font-black tracking-tighter leading-[1.1] md:leading-[0.9] font-display uppercase mb-6 drop-shadow-2xl"
           >
             <span
-              class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500"
+              class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 block md:inline"
               >KAUSHAL</span
-            ><br />
+            >
             <span
-              class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-brand-cyan to-white text-glow"
+              class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-brand-cyan to-white text-glow block md:inline"
               >PRAZAPATI</span
             >
           </h1>
 
           <p
-            class="text-gray-400 text-lg md:text-2xl font-light mb-12 max-w-3xl mx-auto"
+            class="text-gray-400 text-sm md:text-2xl font-light mb-10 max-w-3xl mx-auto px-2"
           >
             Building Scalable Systems & Cinematic Digital Experiences.
           </p>
 
           <div
-            class="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            class="flex flex-col sm:flex-row gap-6 justify-center items-center px-4 w-full"
           >
             <a
               href="#projects"
-              class="magnetic-btn cursor-pointer inline-block nav-link"
+              class="magnetic-btn cursor-pointer inline-block nav-link w-full sm:w-auto"
             >
               <div
-                class="px-10 py-5 bg-white text-dark rounded-full font-bold tracking-widest uppercase text-sm hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 flex items-center gap-3"
+                class="px-8 py-4 md:px-10 md:py-5 bg-white text-dark rounded-full font-bold tracking-widest uppercase text-xs md:text-sm hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 flex justify-center items-center gap-3"
               >
                 Explore Work
                 <i class="ph ph-arrow-down-right font-bold text-lg"></i>
@@ -327,18 +374,18 @@
         </div>
 
         <div
-          class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-50 animate-bounce"
+          class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 opacity-50 animate-bounce"
         >
           <div
-            class="w-[2px] h-20 bg-gradient-to-b from-brand-purple to-transparent"
+            class="w-[2px] h-12 md:h-20 bg-gradient-to-b from-brand-purple to-transparent"
           ></div>
         </div>
       </section>
 
       <!-- ABOUT SECTION -->
-      <section id="about" class="py-32 px-6 relative">
+      <section id="about" class="py-20 md:py-32 px-4 md:px-6 relative">
         <div
-          class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center"
+          class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center"
         >
           <div
             class="gs-fade-right relative aspect-[4/5] rounded-3xl overflow-hidden glass p-4 group"
@@ -354,12 +401,12 @@
               ></div>
               <div class="absolute bottom-6 left-6">
                 <h4
-                  class="text-3xl font-black text-white tracking-wider font-display"
+                  class="text-2xl md:text-3xl font-black text-white tracking-wider font-display"
                 >
                   HACKER KD
                 </h4>
                 <p
-                  class="text-brand-purple tracking-widest text-sm uppercase font-bold mt-1"
+                  class="text-brand-purple tracking-widest text-xs md:text-sm uppercase font-bold mt-1"
                 >
                   Experience Builder
                 </p>
@@ -380,7 +427,7 @@
               01. About Me
             </h2>
             <h3
-              class="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight"
+              class="text-3xl md:text-5xl font-bold text-white mb-6 md:mb-8 leading-tight"
             >
               Merging logic with <br /><span
                 class="italic text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-cyan"
@@ -388,7 +435,7 @@
               >
             </h3>
             <div
-              class="space-y-6 text-gray-400 leading-relaxed font-light text-lg"
+              class="space-y-4 md:space-y-6 text-gray-400 leading-relaxed font-light text-sm md:text-lg"
             >
               <p>
                 I’m Kaushal Prazapati (aka Hacker KD), a Full-Stack Developer
@@ -401,30 +448,40 @@
                 experiences that users remember.
               </p>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8">
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 pt-6 md:pt-8"
+              >
                 <div class="flex items-center gap-4 glass p-4 rounded-xl">
                   <i
-                    class="ph-fill ph-code block text-brand-purple text-3xl"
+                    class="ph-fill ph-code block text-brand-purple text-2xl md:text-3xl"
                   ></i>
-                  <span class="font-bold text-white">Full-Stack Dev</span>
+                  <span class="font-bold text-white text-sm md:text-base"
+                    >Full-Stack Dev</span
+                  >
                 </div>
                 <div class="flex items-center gap-4 glass p-4 rounded-xl">
                   <i
-                    class="ph-fill ph-film-strip block text-brand-cyan text-3xl"
+                    class="ph-fill ph-film-strip block text-brand-cyan text-2xl md:text-3xl"
                   ></i>
-                  <span class="font-bold text-white">Cinematic Editor</span>
+                  <span class="font-bold text-white text-sm md:text-base"
+                    >Cinematic Editor</span
+                  >
                 </div>
                 <div class="flex items-center gap-4 glass p-4 rounded-xl">
                   <i
-                    class="ph-fill ph-paint-brush-broad block text-brand-pink text-3xl"
+                    class="ph-fill ph-paint-brush-broad block text-brand-pink text-2xl md:text-3xl"
                   ></i>
-                  <span class="font-bold text-white">UI/UX Design</span>
+                  <span class="font-bold text-white text-sm md:text-base"
+                    >UI/UX Design</span
+                  >
                 </div>
                 <div class="flex items-center gap-4 glass p-4 rounded-xl">
                   <i
-                    class="ph-fill ph-lightbulb block text-yellow-500 text-3xl"
+                    class="ph-fill ph-lightbulb block text-yellow-500 text-2xl md:text-3xl"
                   ></i>
-                  <span class="font-bold text-white">Problem Solver</span>
+                  <span class="font-bold text-white text-sm md:text-base"
+                    >Problem Solver</span
+                  >
                 </div>
               </div>
             </div>
@@ -435,34 +492,35 @@
       <!-- SKILLS SECTION -->
       <section
         id="skills"
-        class="py-32 px-6 relative bg-black/40 backdrop-blur-md border-y border-white/5"
+        class="py-20 md:py-32 px-4 md:px-6 relative bg-black/40 backdrop-blur-md border-y border-white/5"
       >
         <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-20 gs-reveal">
+          <div class="text-center mb-12 md:mb-20 gs-reveal">
             <h2
               class="text-xs text-brand-purple tracking-[0.3em] uppercase mb-4 font-display font-bold"
             >
               02. Capabilities
             </h2>
             <h3
-              class="text-4xl md:text-6xl font-black text-white uppercase font-display"
+              class="text-3xl md:text-6xl font-black text-white uppercase font-display"
             >
               Technological Arsenal
             </h3>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <!-- Cards -->
             <div
-              class="glass glass-hover p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
+              class="glass glass-hover p-6 md:p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
             >
               <div
                 class="absolute top-0 right-0 w-32 h-32 bg-brand-purple/10 rounded-full blur-3xl group-hover:bg-brand-purple/20 transition-all"
               ></div>
               <i
-                class="ph-fill ph-code text-5xl text-brand-purple mb-6 block group-hover:scale-110 transition-transform"
+                class="ph-fill ph-code text-4xl md:text-5xl text-brand-purple mb-4 md:mb-6 block group-hover:scale-110 transition-transform"
               ></i>
               <h4
-                class="text-2xl font-display font-bold text-white mb-6 tracking-wide"
+                class="text-xl md:text-2xl font-display font-bold text-white mb-4 md:mb-6 tracking-wide"
               >
                 Development
               </h4>
@@ -499,17 +557,17 @@
             </div>
 
             <div
-              class="glass glass-hover p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
+              class="glass glass-hover p-6 md:p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
               style="transition-delay: 0.1s"
             >
               <div
                 class="absolute top-0 right-0 w-32 h-32 bg-brand-cyan/10 rounded-full blur-3xl group-hover:bg-brand-cyan/20 transition-all"
               ></div>
               <i
-                class="ph-fill ph-hard-drives text-5xl text-brand-cyan mb-6 block group-hover:scale-110 transition-transform"
+                class="ph-fill ph-hard-drives text-4xl md:text-5xl text-brand-cyan mb-4 md:mb-6 block group-hover:scale-110 transition-transform"
               ></i>
               <h4
-                class="text-2xl font-display font-bold text-white mb-6 tracking-wide"
+                class="text-xl md:text-2xl font-display font-bold text-white mb-4 md:mb-6 tracking-wide"
               >
                 Backend & Security
               </h4>
@@ -524,7 +582,7 @@
                 >
                 <span
                   class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
-                  >IAM (Access Mgt)</span
+                  >IAM</span
                 >
                 <span
                   class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
@@ -538,17 +596,17 @@
             </div>
 
             <div
-              class="glass glass-hover p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
+              class="glass glass-hover p-6 md:p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
               style="transition-delay: 0.2s"
             >
               <div
                 class="absolute top-0 right-0 w-32 h-32 bg-brand-pink/10 rounded-full blur-3xl group-hover:bg-brand-pink/20 transition-all"
               ></div>
               <i
-                class="ph-fill ph-video-camera text-5xl text-brand-pink mb-6 block group-hover:scale-110 transition-transform"
+                class="ph-fill ph-video-camera text-4xl md:text-5xl text-brand-pink mb-4 md:mb-6 block group-hover:scale-110 transition-transform"
               ></i>
               <h4
-                class="text-2xl font-display font-bold text-white mb-6 tracking-wide"
+                class="text-xl md:text-2xl font-display font-bold text-white mb-4 md:mb-6 tracking-wide"
               >
                 Creative & AI
               </h4>
@@ -579,43 +637,43 @@
         </div>
       </section>
 
-      <!-- PROJECTS SECTION (Now a Horizontal Slider) -->
-      <section id="projects" class="py-32 px-6 relative">
-        <div class="max-w-7xl mx-auto">
+      <!-- PROJECTS SECTION -->
+      <section id="projects" class="py-20 md:py-32 px-4 md:px-6 relative">
+        <div class="max-w-7xl mx-auto w-full">
           <div
-            class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 gs-reveal"
+            class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-4 md:gap-6 gs-reveal"
           >
             <div>
               <h2
-                class="text-xs text-brand-cyan tracking-[0.3em] uppercase mb-4 font-display font-bold"
+                class="text-xs text-brand-cyan tracking-[0.3em] uppercase mb-2 md:mb-4 font-display font-bold"
               >
                 03. Selected Work
               </h2>
               <h3
-                class="text-4xl md:text-6xl font-black text-white uppercase font-display"
+                class="text-3xl md:text-6xl font-black text-white uppercase font-display"
               >
                 Real Projects
               </h3>
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 md:hidden self-end">
               <button
                 id="scroll-left-projects"
-                class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors nav-link"
+                class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <i class="ph ph-caret-left text-xl"></i>
+                <i class="ph ph-caret-left text-lg"></i>
               </button>
               <button
                 id="scroll-right-projects"
-                class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors nav-link"
+                class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <i class="ph ph-caret-right text-xl"></i>
+                <i class="ph ph-caret-right text-lg"></i>
               </button>
             </div>
           </div>
 
           <div
-            id="projects-slider"
-            class="slider-container flex overflow-x-auto gap-8 pb-10 hide-scrollbar snap-x snap-mandatory scroll-smooth w-full"
+            id="projects-container"
+            class="slider-container flex md:grid md:grid-cols-2 overflow-x-auto md:overflow-x-visible gap-4 md:gap-10 pb-6 md:pb-10 hide-scrollbar snap-x snap-mandatory md:snap-none scroll-smooth w-full"
           >
             <!-- Projects injected via JS -->
           </div>
@@ -625,43 +683,43 @@
       <!-- CERTIFICATIONS SECTION -->
       <section
         id="certs"
-        class="py-32 px-6 relative bg-black/60 border-y border-white/5"
+        class="py-20 md:py-32 px-4 md:px-6 relative bg-black/60 border-y border-white/5"
       >
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto w-full">
           <div
-            class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 gs-reveal"
+            class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-4 md:gap-6 gs-reveal"
           >
             <div>
               <h2
-                class="text-xs text-brand-pink tracking-[0.3em] uppercase mb-4 font-display font-bold"
+                class="text-xs text-brand-pink tracking-[0.3em] uppercase mb-2 md:mb-4 font-display font-bold"
               >
                 04. Verified Expertise
               </h2>
               <h3
-                class="text-4xl md:text-6xl font-black text-white uppercase font-display"
+                class="text-3xl md:text-6xl font-black text-white uppercase font-display"
               >
                 Certifications
               </h3>
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 self-end">
               <button
                 id="scroll-left"
-                class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors nav-link"
+                class="w-10 h-10 md:w-12 md:h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <i class="ph ph-caret-left text-xl"></i>
+                <i class="ph ph-caret-left text-lg md:text-xl"></i>
               </button>
               <button
                 id="scroll-right"
-                class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors nav-link"
+                class="w-10 h-10 md:w-12 md:h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <i class="ph ph-caret-right text-xl"></i>
+                <i class="ph ph-caret-right text-lg md:text-xl"></i>
               </button>
             </div>
           </div>
 
           <div
             id="certs-slider"
-            class="slider-container flex overflow-x-auto gap-6 pb-10 hide-scrollbar snap-x snap-mandatory scroll-smooth w-full"
+            class="slider-container flex overflow-x-auto gap-4 md:gap-6 pb-6 md:pb-10 hide-scrollbar snap-x snap-mandatory scroll-smooth w-full"
           >
             <!-- Certs injected via JS -->
           </div>
@@ -671,16 +729,16 @@
       <!-- CONTACT SECTION -->
       <section
         id="contact"
-        class="py-32 px-6 relative bg-gradient-to-b from-transparent to-black border-t border-white/5"
+        class="py-20 md:py-32 px-4 md:px-6 relative bg-gradient-to-b from-transparent to-black border-t border-white/5"
       >
-        <div class="max-w-4xl mx-auto text-center gs-reveal">
+        <div class="max-w-4xl mx-auto text-center gs-reveal w-full">
           <h2
             class="text-xs text-brand-purple tracking-[0.3em] uppercase mb-4 font-display font-bold"
           >
             05. What's Next?
           </h2>
           <h3
-            class="text-5xl md:text-7xl font-black text-white tracking-tight uppercase font-display"
+            class="text-4xl md:text-7xl font-black text-white tracking-tight uppercase font-display"
           >
             LET'S BUILD <br /><span
               class="text-glow text-brand-purple italic font-light"
@@ -688,101 +746,101 @@
             >
           </h3>
 
-          <!-- NEW CONTACT FORM -->
           <form
             id="contactForm"
-            class="glass p-8 md:p-12 rounded-3xl text-left mt-16 space-y-6 max-w-3xl mx-auto relative group overflow-hidden"
+            class="glass p-6 md:p-12 rounded-3xl text-left mt-10 md:mt-16 space-y-4 md:space-y-6 w-full max-w-3xl mx-auto relative group overflow-hidden"
             onsubmit="submitContactForm(event)"
           >
             <div
               class="absolute inset-0 bg-gradient-to-tr from-brand-purple/5 to-brand-cyan/5 opacity-50 z-0 pointer-events-none"
             ></div>
             <div class="relative z-10">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6"
+              >
                 <div>
                   <label
-                    class="text-xs text-gray-400 tracking-widest uppercase mb-2 block"
+                    class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mb-2 block"
                     >Your Name</label
                   >
                   <input
                     type="text"
                     id="contactName"
                     required
-                    class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
+                    class="w-full bg-black/60 border border-white/10 rounded-xl p-3 md:p-4 text-white text-sm focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
                     placeholder="John Doe"
                   />
                 </div>
                 <div>
                   <label
-                    class="text-xs text-gray-400 tracking-widest uppercase mb-2 block"
+                    class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mb-2 block"
                     >Your Email</label
                   >
                   <input
                     type="email"
                     id="contactEmail"
                     required
-                    class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
+                    class="w-full bg-black/60 border border-white/10 rounded-xl p-3 md:p-4 text-white text-sm focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
                     placeholder="john@example.com"
                   />
                 </div>
               </div>
-              <div class="mb-8">
+              <div class="mb-6 md:mb-8">
                 <label
-                  class="text-xs text-gray-400 tracking-widest uppercase mb-2 block"
+                  class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mb-2 block"
                   >Message</label
                 >
                 <textarea
                   id="contactMessage"
                   required
                   rows="4"
-                  class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
+                  class="w-full bg-black/60 border border-white/10 rounded-xl p-3 md:p-4 text-white text-sm focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
                   placeholder="How can we collaborate?"
                 ></textarea>
               </div>
               <button
                 type="submit"
                 id="submitBtn"
-                class="w-full py-4 bg-gradient-to-r from-brand-purple to-brand-cyan text-black font-bold tracking-widest uppercase rounded-xl hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-all flex justify-center items-center gap-2"
+                class="w-full py-3 md:py-4 bg-gradient-to-r from-brand-purple to-brand-cyan text-black font-bold tracking-widest uppercase text-sm rounded-xl hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-all flex justify-center items-center gap-2"
               >
-                Send Message <i class="ph ph-paper-plane-tilt text-xl"></i>
+                Send Message
+                <i class="ph ph-paper-plane-tilt text-lg md:text-xl"></i>
               </button>
             </div>
           </form>
 
-          <!-- Text vali details kadhi nakhi chhe, badhu icons ma muki didhu chhe -->
           <div
-            class="mt-20 flex justify-center gap-4 md:gap-8 flex-wrap gs-reveal"
+            class="mt-12 md:mt-20 flex justify-center gap-3 md:gap-8 flex-wrap gs-reveal px-2"
           >
             <a
               href="https://github.com/KaushalPrazapati"
               target="_blank"
-              class="text-gray-500 hover:text-white transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-              ><i class="ph ph-github-logo text-3xl"></i
+              class="text-gray-500 hover:text-white transition-all p-3 md:p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+              ><i class="ph ph-github-logo text-xl md:text-3xl"></i
             ></a>
             <a
               href="https://instagram.com/hackerkd"
               target="_blank"
-              class="text-gray-500 hover:text-[#E1306C] transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(225,48,108,0.3)]"
-              ><i class="ph ph-instagram-logo text-3xl"></i
+              class="text-gray-500 hover:text-[#E1306C] transition-all p-3 md:p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(225,48,108,0.3)]"
+              ><i class="ph ph-instagram-logo text-xl md:text-3xl"></i
             ></a>
             <a
               href="https://wa.me/919471640485"
               target="_blank"
-              class="text-gray-500 hover:text-[#25D366] transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(37,211,102,0.3)]"
-              ><i class="ph ph-whatsapp-logo text-3xl"></i
+              class="text-gray-500 hover:text-[#25D366] transition-all p-3 md:p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(37,211,102,0.3)]"
+              ><i class="ph ph-whatsapp-logo text-xl md:text-3xl"></i
             ></a>
             <a
               href="https://www.linkedin.com/in/kaushalprazapati/"
               target="_blank"
-              class="text-gray-500 hover:text-[#0A66C2] transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(10,102,194,0.3)]"
-              ><i class="ph ph-linkedin-logo text-3xl"></i
+              class="text-gray-500 hover:text-[#0A66C2] transition-all p-3 md:p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(10,102,194,0.3)]"
+              ><i class="ph ph-linkedin-logo text-xl md:text-3xl"></i
             ></a>
-            <!-- Navu Email Icon Umeriyu -->
             <a
               href="mailto:kaushalprazapati@gmail.com"
               target="_blank"
-              class="text-gray-500 hover:text-brand-purple transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
-              ><i class="ph ph-envelope-simple text-3xl"></i
+              class="text-gray-500 hover:text-brand-purple transition-all p-3 md:p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+              ><i class="ph ph-envelope-simple text-xl md:text-3xl"></i
             ></a>
           </div>
         </div>
@@ -790,7 +848,7 @@
 
       <!-- FOOTER -->
       <footer
-        class="py-10 text-center text-xs text-gray-600 tracking-widest uppercase font-display bg-black flex flex-col items-center justify-center gap-4"
+        class="py-8 md:py-10 text-center text-[10px] md:text-xs text-gray-600 tracking-widest uppercase font-display bg-black flex flex-col items-center justify-center gap-3"
       >
         <p>
           © <span id="year"></span> Hacker KD (Kaushal Prazapati). All rights
@@ -807,34 +865,33 @@
 
     <!-- ADMIN PANEL MODALS -->
 
-    <!-- Login Modal -->
     <div
       id="adminLoginModal"
-      class="fixed inset-0 bg-black/90 z-[10001] flex items-center justify-center modal-hidden backdrop-blur-md"
+      class="fixed inset-0 bg-black/90 z-[10001] flex items-center justify-center modal-hidden backdrop-blur-md px-4"
     >
-      <div class="glass p-8 rounded-2xl w-full max-w-sm text-center">
-        <h3 class="text-2xl font-display font-bold text-white mb-6">
+      <div class="glass p-6 md:p-8 rounded-2xl w-full max-w-sm text-center">
+        <h3 class="text-xl md:text-2xl font-display font-bold text-white mb-6">
           System Access
         </h3>
         <input
           type="password"
           id="adminPassword"
           placeholder="Enter Password"
-          class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white mb-4 focus:outline-none focus:border-brand-purple"
+          class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm mb-4 focus:outline-none focus:border-brand-purple"
         />
-        <p class="text-xs text-gray-500 mb-6">
+        <p class="text-[10px] md:text-xs text-gray-500 mb-6">
           (Hint: Password is 'kaushal2026')
         </p>
-        <div class="flex gap-4">
+        <div class="flex gap-3">
           <button
             onclick="window.closeAdminLogin()"
-            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400 hover:bg-white/5"
+            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400 text-sm hover:bg-white/5"
           >
             Cancel
           </button>
           <button
             onclick="window.verifyAdmin()"
-            class="flex-1 p-3 rounded-lg bg-brand-purple text-white font-bold hover:bg-brand-purple/80"
+            class="flex-1 p-3 rounded-lg bg-brand-purple text-white text-sm font-bold hover:bg-brand-purple/80"
           >
             Login
           </button>
@@ -845,51 +902,51 @@
       </div>
     </div>
 
-    <!-- Dashboard Modal -->
     <div
       id="adminDashboard"
       class="fixed inset-0 bg-black/95 z-[10002] modal-hidden flex flex-col backdrop-blur-xl overflow-y-auto"
     >
-      <div class="max-w-6xl w-full mx-auto p-6 md:p-12">
+      <div class="w-full max-w-6xl mx-auto p-4 md:p-12 mt-4 md:mt-0">
         <div
-          class="flex justify-between items-center mb-8 border-b border-white/10 pb-6"
+          class="flex justify-between items-center mb-6 md:mb-8 border-b border-white/10 pb-4 md:pb-6"
         >
           <div>
-            <h2 class="text-3xl font-display font-bold text-white">
+            <h2 class="text-xl md:text-3xl font-display font-bold text-white">
               Admin Dashboard
             </h2>
-            <p class="text-brand-cyan text-sm tracking-widest uppercase mt-2">
+            <p
+              class="text-brand-cyan text-[10px] md:text-sm tracking-widest uppercase mt-1 md:mt-2"
+            >
               Manage Data & Messages
             </p>
           </div>
           <button
             onclick="window.closeAdminDashboard()"
-            class="text-gray-400 hover:text-white p-2 glass rounded-full"
+            class="text-gray-400 hover:text-white p-2 glass rounded-full shrink-0"
           >
-            <i class="ph ph-x text-2xl"></i>
+            <i class="ph ph-x text-xl md:text-2xl"></i>
           </button>
         </div>
 
-        <!-- Tab Buttons (Added Messages Tab) -->
-        <div class="flex flex-wrap gap-4 mb-8">
+        <div class="flex flex-wrap gap-2 md:gap-4 mb-6 md:mb-8">
           <button
             onclick="window.switchAdminTab('projects')"
             id="tab-projects"
-            class="px-6 py-2 bg-brand-purple text-white rounded-lg font-bold"
+            class="px-4 py-2 md:px-6 md:py-2 text-xs md:text-sm bg-brand-purple text-white rounded-lg font-bold"
           >
             Projects
           </button>
           <button
             onclick="window.switchAdminTab('certs')"
             id="tab-certs"
-            class="px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold"
+            class="px-4 py-2 md:px-6 md:py-2 text-xs md:text-sm bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold"
           >
             Certifications
           </button>
           <button
             onclick="window.switchAdminTab('messages')"
             id="tab-messages"
-            class="px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold relative"
+            class="px-4 py-2 md:px-6 md:py-2 text-xs md:text-sm bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold relative"
           >
             Inquiries
             <span
@@ -900,145 +957,144 @@
           </button>
         </div>
 
-        <!-- Projects Panel -->
         <div id="panel-projects">
-          <h3 class="text-xl font-bold text-white mb-4">Manage Projects</h3>
-          <div id="admin-projects-list" class="space-y-4"></div>
+          <h3 class="text-lg md:text-xl font-bold text-white mb-4">
+            Manage Projects
+          </h3>
+          <div id="admin-projects-list" class="space-y-3 md:space-y-4"></div>
         </div>
 
-        <!-- Certs Panel -->
         <div id="panel-certs" class="hidden">
-          <h3 class="text-xl font-bold text-white mb-4">
+          <h3 class="text-lg md:text-xl font-bold text-white mb-4">
             Manage Certifications
           </h3>
-          <div id="admin-certs-list" class="space-y-4"></div>
+          <div id="admin-certs-list" class="space-y-3 md:space-y-4"></div>
         </div>
 
-        <!-- Messages Panel -->
         <div id="panel-messages" class="hidden">
-          <h3 class="text-xl font-bold text-white mb-4">
-            Contact Form Submissions
+          <h3 class="text-lg md:text-xl font-bold text-white mb-4">
+            Contact Submissions
           </h3>
-          <div id="admin-messages-list" class="space-y-4">
-            <!-- Messages will appear here -->
-          </div>
+          <div id="admin-messages-list" class="space-y-3 md:space-y-4"></div>
         </div>
       </div>
     </div>
 
-    <!-- Edit Project Modal -->
     <div
       id="editProjectModal"
-      class="fixed inset-0 bg-black/95 z-[10003] flex items-center justify-center modal-hidden"
+      class="fixed inset-0 bg-black/95 z-[10003] flex items-center justify-center modal-hidden px-4 py-8"
     >
       <div
-        class="glass p-8 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        class="glass p-6 md:p-8 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative"
       >
-        <h3 class="text-2xl font-display font-bold text-white mb-6">
+        <h3
+          class="text-xl md:text-2xl font-display font-bold text-white mb-4 md:mb-6 sticky top-0 bg-black/80 backdrop-blur pb-2 z-10"
+        >
           Edit Project
         </h3>
         <input type="hidden" id="edit-id" />
         <input type="hidden" id="edit-fbid" />
-        <div class="space-y-4">
+        <div class="space-y-3 md:space-y-4 mt-2">
           <input
             type="text"
             id="edit-title"
             placeholder="Title"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-purple"
           />
           <input
             type="text"
             id="edit-category"
             placeholder="Category"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-purple"
           />
           <input
             type="text"
             id="edit-link"
             placeholder="Live Link URL"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-purple"
           />
           <input
             type="text"
             id="edit-image"
             placeholder="Image URL"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-purple"
           />
           <input
             type="text"
             id="edit-tech"
             placeholder="Tech Stack (comma separated)"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-purple"
           />
           <textarea
             id="edit-desc"
             rows="4"
             placeholder="Description"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-purple"
           ></textarea>
         </div>
-        <div class="flex gap-4 mt-6">
+        <div class="flex gap-3 md:gap-4 mt-6">
           <button
             onclick="window.closeEditModal('editProjectModal')"
-            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400"
+            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400 text-sm"
           >
             Cancel
           </button>
           <button
             onclick="window.saveProject()"
-            class="flex-1 p-3 rounded-lg bg-brand-cyan text-black font-bold"
+            class="flex-1 p-3 rounded-lg bg-brand-cyan text-black text-sm font-bold"
           >
-            Save Changes
+            Save
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Edit Cert Modal -->
     <div
       id="editCertModal"
-      class="fixed inset-0 bg-black/95 z-[10003] flex items-center justify-center modal-hidden"
+      class="fixed inset-0 bg-black/95 z-[10003] flex items-center justify-center modal-hidden px-4 py-8"
     >
       <div
-        class="glass p-8 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto"
+        class="glass p-6 md:p-8 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto"
       >
-        <h3 class="text-2xl font-display font-bold text-white mb-6">
+        <h3
+          class="text-xl md:text-2xl font-display font-bold text-white mb-4 md:mb-6"
+        >
           Edit Certification
         </h3>
         <input type="hidden" id="edit-cert-id" />
         <input type="hidden" id="edit-cert-fbid" />
-        <div class="space-y-4">
+        <div class="space-y-3 md:space-y-4">
           <input
             type="text"
             id="edit-cert-title"
             placeholder="Certificate Title"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-pink"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-pink"
           />
           <input
             type="text"
             id="edit-cert-issuer"
             placeholder="Issuer (e.g. HackerRank)"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-pink"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-pink"
           />
           <input
             type="text"
             id="edit-cert-image"
-            placeholder="Image URL (Link to your screenshot)"
-            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-pink"
+            placeholder="Image URL"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white text-sm focus:border-brand-pink"
           />
         </div>
-        <div class="flex gap-4 mt-6">
+        <div class="flex gap-3 md:gap-4 mt-6">
           <button
             onclick="window.closeEditModal('editCertModal')"
-            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400"
+            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400 text-sm"
           >
             Cancel
           </button>
           <button
             onclick="window.saveCert()"
-            class="flex-1 p-3 rounded-lg bg-brand-pink text-white font-bold"
+            class="flex-1 p-3 rounded-lg bg-brand-pink text-white text-sm font-bold"
           >
-            Save Changes
+            Save
           </button>
         </div>
       </div>
@@ -1064,7 +1120,6 @@
         setDoc,
       } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-      // Your Firebase config
       const firebaseConfig = {
         apiKey: "AIzaSyALc7Jy_KMmNtNaJFhB3Aq65S8RuhRlANU",
         authDomain: "hackerkd.firebaseapp.com",
@@ -1077,14 +1132,12 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      // Global State
       window.portfolioState = {
         projects: [],
         certs: [],
         messages: [],
       };
 
-      // Fallback Default Data (Only uploads if DB is completely empty)
       const defaultProjects = [
         {
           id: 1,
@@ -1201,7 +1254,6 @@
 
       async function initData() {
         try {
-          // Fetch Projects
           const pSnap = await getDocs(collection(db, "projects"));
           if (pSnap.empty) {
             for (const p of defaultProjects) {
@@ -1217,7 +1269,6 @@
             window.portfolioState.projects.sort((a, b) => a.id - b.id);
           }
 
-          // Fetch Certs
           const cSnap = await getDocs(collection(db, "certs"));
           if (cSnap.empty) {
             for (const c of defaultCerts) {
@@ -1233,7 +1284,6 @@
             window.portfolioState.certs.sort((a, b) => a.id - b.id);
           }
 
-          // Fetch Messages
           const mSnap = await getDocs(collection(db, "messages"));
           window.portfolioState.messages = mSnap.docs.map((d) => ({
             fbId: d.id,
@@ -1263,9 +1313,8 @@
         }, 1000);
       }
 
-      // Render functions attached to window for scope
       window.renderProjects = function () {
-        const container = document.getElementById("projects-slider");
+        const container = document.getElementById("projects-container");
         container.innerHTML = "";
 
         window.portfolioState.projects.forEach((proj, index) => {
@@ -1273,26 +1322,27 @@
           const techBadges = proj.tech
             .map(
               (t) =>
-                `<span class="px-3 py-1 text-[10px] uppercase font-bold text-white border border-white/20 rounded-full bg-black/50 backdrop-blur-md whitespace-nowrap">${t.trim()}</span>`,
+                `<span class="px-2 py-1 md:px-3 md:py-1 text-[9px] md:text-[10px] uppercase font-bold text-white border border-white/20 rounded-full bg-black/50 backdrop-blur-md whitespace-nowrap">${t.trim()}</span>`,
             )
             .join("");
 
+          // CRITICAL FIX: Explicit width control (w-[85vw] on mobile, auto on desktop) with shrink-0
           const html = `
-                    <div class="project-card min-w-[85vw] md:min-w-[450px] lg:min-w-[500px] snap-center glass rounded-3xl overflow-hidden flex flex-col h-full gs-reveal nav-link group cursor-pointer border border-white/10 hover:border-brand-cyan/50 transition-all duration-500" style="transition-delay: ${delay}s" onclick="window.open('${proj.link}', '_blank')">
-                        <div class="relative h-64 md:h-80 overflow-hidden w-full bg-black shrink-0">
+                    <div class="project-card w-[85vw] shrink-0 md:w-auto md:min-w-0 snap-center md:snap-align-none glass rounded-2xl md:rounded-3xl overflow-hidden flex flex-col h-full gs-reveal nav-link group cursor-pointer border border-white/10 hover:border-brand-cyan/50 transition-all duration-500" style="transition-delay: ${delay}s" onclick="window.open('${proj.link}', '_blank')">
+                        <div class="relative h-56 md:h-80 overflow-hidden w-full bg-black shrink-0">
                             <img src="${proj.image}" alt="${proj.title}" class="project-img w-full h-full object-cover opacity-80 group-hover:opacity-100">
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                            <div class="absolute top-6 left-6 flex items-center gap-2">
-                                <span class="bg-brand-cyan text-black text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded-full shadow-lg">${proj.category}</span>
+                            <div class="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-2">
+                                <span class="bg-brand-cyan text-black text-[9px] md:text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded-full shadow-lg">${proj.category}</span>
                             </div>
-                            <div class="absolute top-6 right-6 w-10 h-10 rounded-full glass flex items-center justify-center text-white group-hover:bg-brand-cyan group-hover:text-black group-hover:scale-110 transition-all duration-300">
-                                <i class="ph ph-arrow-up-right text-xl"></i>
+                            <div class="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full glass flex items-center justify-center text-white group-hover:bg-brand-cyan group-hover:text-black group-hover:scale-110 transition-all duration-300">
+                                <i class="ph ph-arrow-up-right text-lg md:text-xl"></i>
                             </div>
                         </div>
-                        <div class="p-8 flex flex-col flex-grow relative z-10 bg-gradient-to-b from-black to-dark">
-                            <h4 class="text-3xl font-display font-bold text-white mb-4 group-hover:text-brand-cyan transition-colors">${proj.title}</h4>
-                            <p class="text-gray-400 font-light mb-8 text-sm leading-relaxed">${proj.desc}</p>
-                            <div class="flex flex-wrap gap-2 mt-auto pt-6 border-t border-white/10">
+                        <div class="p-5 md:p-8 flex flex-col flex-grow relative z-10 bg-gradient-to-b from-black to-dark">
+                            <h4 class="text-2xl md:text-3xl font-display font-bold text-white mb-2 md:mb-4 group-hover:text-brand-cyan transition-colors">${proj.title}</h4>
+                            <p class="text-gray-400 font-light mb-6 md:mb-8 text-xs md:text-sm leading-relaxed">${proj.desc}</p>
+                            <div class="flex flex-wrap gap-2 mt-auto pt-4 md:pt-6 border-t border-white/10">
                                 ${techBadges}
                             </div>
                         </div>
@@ -1310,14 +1360,15 @@
         container.innerHTML = "";
 
         window.portfolioState.certs.forEach((cert) => {
+          // CRITICAL FIX: w-[85vw] on mobile ensures strict card width without flex squishing
           const html = `
-                    <div class="min-w-[300px] md:min-w-[380px] snap-center glass rounded-2xl p-4 border border-white/10 group hover:border-brand-pink/50 transition-all cursor-pointer">
+                    <div class="w-[85vw] shrink-0 md:w-[380px] snap-center glass rounded-2xl p-4 border border-white/10 group hover:border-brand-pink/50 transition-all cursor-pointer">
                         <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-black relative mb-4">
                             <img src="${cert.image}" alt="${cert.title}" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                             <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl"></div>
                         </div>
-                        <h4 class="text-lg font-bold text-white font-display tracking-wide group-hover:text-brand-pink transition-colors">${cert.title}</h4>
-                        <p class="text-xs text-gray-400 mt-1 flex items-center uppercase tracking-wider font-bold"><i class="ph-fill ph-check-circle text-brand-cyan mr-2"></i> ${cert.issuer}</p>
+                        <h4 class="text-base md:text-lg font-bold text-white font-display tracking-wide group-hover:text-brand-pink transition-colors leading-tight">${cert.title}</h4>
+                        <p class="text-[10px] md:text-xs text-gray-400 mt-2 flex items-center uppercase tracking-wider font-bold"><i class="ph-fill ph-check-circle text-brand-cyan mr-2"></i> ${cert.issuer}</p>
                     </div>
                 `;
           container.innerHTML += html;
@@ -1351,7 +1402,7 @@
 
           e.target.reset();
           btn.innerHTML =
-            '<i class="ph-fill ph-check-circle text-2xl"></i> Sent!';
+            '<i class="ph-fill ph-check-circle text-lg md:text-2xl"></i> Sent!';
           btn.classList.replace("from-brand-purple", "from-green-500");
           btn.classList.replace("to-brand-cyan", "to-emerald-500");
 
@@ -1380,12 +1431,12 @@
         pContainer.innerHTML = "";
         window.portfolioState.projects.forEach((proj) => {
           pContainer.innerHTML += `
-                    <div class="glass p-4 rounded-xl flex justify-between items-center border border-white/10">
-                        <div class="flex items-center gap-4">
-                            <img src="${proj.image}" class="w-16 h-12 object-cover rounded shadow">
-                            <div><h4 class="text-white font-bold">${proj.title}</h4><p class="text-xs text-gray-500">${proj.category}</p></div>
+                    <div class="glass p-3 md:p-4 rounded-xl flex justify-between items-center border border-white/10">
+                        <div class="flex items-center gap-3 md:gap-4 w-2/3">
+                            <img src="${proj.image}" class="w-12 h-10 md:w-16 md:h-12 object-cover rounded shadow shrink-0">
+                            <div class="truncate"><h4 class="text-white font-bold text-sm md:text-base truncate">${proj.title}</h4><p class="text-[10px] md:text-xs text-gray-500 truncate">${proj.category}</p></div>
                         </div>
-                        <button onclick="window.openEditProject(${proj.id})" class="px-4 py-2 bg-white/10 hover:bg-brand-cyan hover:text-black text-white rounded-lg text-sm transition-colors"><i class="ph ph-pencil-simple mr-2"></i> Edit</button>
+                        <button onclick="window.openEditProject(${proj.id})" class="px-3 py-1.5 md:px-4 md:py-2 bg-white/10 hover:bg-brand-cyan hover:text-black text-white rounded-lg text-xs md:text-sm transition-colors shrink-0"><i class="ph ph-pencil-simple md:mr-2"></i> <span class="hidden md:inline">Edit</span></button>
                     </div>`;
         });
 
@@ -1393,12 +1444,12 @@
         cContainer.innerHTML = "";
         window.portfolioState.certs.forEach((cert) => {
           cContainer.innerHTML += `
-                    <div class="glass p-4 rounded-xl flex justify-between items-center border border-white/10">
-                        <div class="flex items-center gap-4">
-                            <img src="${cert.image}" class="w-16 h-12 object-cover rounded shadow">
-                            <div><h4 class="text-white font-bold">${cert.title}</h4><p class="text-xs text-gray-500">${cert.issuer}</p></div>
+                    <div class="glass p-3 md:p-4 rounded-xl flex justify-between items-center border border-white/10">
+                        <div class="flex items-center gap-3 md:gap-4 w-2/3">
+                            <img src="${cert.image}" class="w-12 h-10 md:w-16 md:h-12 object-cover rounded shadow shrink-0">
+                            <div class="truncate"><h4 class="text-white font-bold text-sm md:text-base truncate">${cert.title}</h4><p class="text-[10px] md:text-xs text-gray-500 truncate">${cert.issuer}</p></div>
                         </div>
-                        <button onclick="window.openEditCert(${cert.id})" class="px-4 py-2 bg-white/10 hover:bg-brand-pink text-white rounded-lg text-sm transition-colors"><i class="ph ph-pencil-simple mr-2"></i> Edit</button>
+                        <button onclick="window.openEditCert(${cert.id})" class="px-3 py-1.5 md:px-4 md:py-2 bg-white/10 hover:bg-brand-pink text-white rounded-lg text-xs md:text-sm transition-colors shrink-0"><i class="ph ph-pencil-simple md:mr-2"></i> <span class="hidden md:inline">Edit</span></button>
                     </div>`;
         });
 
@@ -1411,19 +1462,19 @@
 
         if (window.portfolioState.messages.length === 0) {
           mContainer.innerHTML =
-            '<p class="text-gray-500 italic p-4 glass rounded-xl border border-white/5">No messages received yet.</p>';
+            '<p class="text-gray-500 italic p-4 glass rounded-xl border border-white/5 text-sm">No messages received yet.</p>';
           return;
         }
 
         window.portfolioState.messages.forEach((m) => {
           mContainer.innerHTML += `
-                    <div class="glass p-5 rounded-xl border border-white/10 mb-4 relative group">
-                        <div class="flex justify-between items-start mb-3">
-                            <div><h4 class="text-white font-bold text-lg">${m.name}</h4><a href="mailto:${m.email}" class="text-xs text-brand-cyan hover:underline">${m.email}</a></div>
-                            <span class="text-xs text-gray-500">${m.date}</span>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-white/10 mb-4 relative group">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2 md:mb-3 gap-1 pr-8">
+                            <div><h4 class="text-white font-bold text-sm md:text-lg">${m.name}</h4><a href="mailto:${m.email}" class="text-[10px] md:text-xs text-brand-cyan hover:underline break-all">${m.email}</a></div>
+                            <span class="text-[10px] md:text-xs text-gray-500">${m.date}</span>
                         </div>
-                        <p class="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed">${m.message}</p>
-                        <button onclick="window.deleteMessage('${m.fbId}')" class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-400 transition-opacity bg-black/50 p-2 rounded-lg"><i class="ph ph-trash text-lg"></i></button>
+                        <p class="text-gray-300 text-xs md:text-sm whitespace-pre-wrap leading-relaxed">${m.message}</p>
+                        <button onclick="window.deleteMessage('${m.fbId}')" class="absolute top-2 right-2 md:top-4 md:right-4 opacity-100 md:opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-400 transition-opacity bg-black/50 p-1.5 md:p-2 rounded-lg"><i class="ph ph-trash text-base md:text-lg"></i></button>
                     </div>`;
         });
       };
@@ -1456,20 +1507,36 @@
           .getElementById("panel-messages")
           .classList.toggle("hidden", tab !== "messages");
 
+        const activeClass =
+          "px-4 py-2 md:px-6 md:py-2 text-xs md:text-sm bg-brand-purple text-white rounded-lg font-bold";
+        const inactiveClass =
+          "px-4 py-2 md:px-6 md:py-2 text-xs md:text-sm bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold";
+
         document.getElementById("tab-projects").className =
-          tab === "projects"
-            ? "px-6 py-2 bg-brand-purple text-white rounded-lg font-bold"
-            : "px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold";
+          tab === "projects" ? activeClass : inactiveClass;
         document.getElementById("tab-certs").className =
-          tab === "certs"
-            ? "px-6 py-2 bg-brand-purple text-white rounded-lg font-bold"
-            : "px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold";
+          tab === "certs" ? activeClass : inactiveClass;
 
         const msgTab = document.getElementById("tab-messages");
         msgTab.className =
           tab === "messages"
-            ? "px-6 py-2 bg-brand-purple text-white rounded-lg font-bold relative"
-            : "px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold relative";
+            ? activeClass + " relative"
+            : inactiveClass + " relative";
+      };
+
+      window.toggleMobileMenu = function () {
+        const menu = document.getElementById("mobileMenu");
+        const icon = document.getElementById("menuIcon");
+
+        if (menu.classList.contains("opacity-0")) {
+          menu.classList.remove("opacity-0", "pointer-events-none");
+          menu.classList.add("opacity-100", "pointer-events-auto");
+          icon.classList.replace("ph-list", "ph-x");
+        } else {
+          menu.classList.add("opacity-0", "pointer-events-none");
+          menu.classList.remove("opacity-100", "pointer-events-auto");
+          icon.classList.replace("ph-x", "ph-list");
+        }
       };
 
       window.openAdminLogin = function () {
@@ -1591,84 +1658,67 @@
       document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Start Firebase Sync
         initData();
 
-        // --- Projects Slider controls ---
-        const projectSlider = document.getElementById("projects-slider");
+        // Slider drag setup helper
+        function setupSliderDrag(sliderId) {
+          const slider = document.getElementById(sliderId);
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+          slider.addEventListener("mousedown", (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener("mouseleave", () => {
+            isDown = false;
+          });
+          slider.addEventListener("mouseup", () => {
+            isDown = false;
+          });
+          slider.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+          });
+        }
+
+        setupSliderDrag("projects-container");
+        setupSliderDrag("certs-slider");
+
         document
           .getElementById("scroll-left-projects")
           .addEventListener("click", () => {
-            projectSlider.scrollBy({ left: -400, behavior: "smooth" });
+            document
+              .getElementById("projects-container")
+              .scrollBy({ left: -300, behavior: "smooth" });
           });
         document
           .getElementById("scroll-right-projects")
           .addEventListener("click", () => {
-            projectSlider.scrollBy({ left: 400, behavior: "smooth" });
+            document
+              .getElementById("projects-container")
+              .scrollBy({ left: 300, behavior: "smooth" });
           });
-
-        // Projects Slider Drag to scroll
-        let isDownP = false;
-        let startXP;
-        let scrollLeftP;
-        projectSlider.addEventListener("mousedown", (e) => {
-          isDownP = true;
-          startXP = e.pageX - projectSlider.offsetLeft;
-          scrollLeftP = projectSlider.scrollLeft;
-        });
-        projectSlider.addEventListener("mouseleave", () => {
-          isDownP = false;
-        });
-        projectSlider.addEventListener("mouseup", () => {
-          isDownP = false;
-        });
-        projectSlider.addEventListener("mousemove", (e) => {
-          if (!isDownP) return;
-          e.preventDefault();
-          const x = e.pageX - projectSlider.offsetLeft;
-          const walk = (x - startXP) * 2;
-          projectSlider.scrollLeft = scrollLeftP - walk;
-        });
-
-        // --- Certs Slider controls ---
-        const slider = document.getElementById("certs-slider");
         document.getElementById("scroll-left").addEventListener("click", () => {
-          slider.scrollBy({ left: -400, behavior: "smooth" });
+          document
+            .getElementById("certs-slider")
+            .scrollBy({ left: -300, behavior: "smooth" });
         });
         document
           .getElementById("scroll-right")
           .addEventListener("click", () => {
-            slider.scrollBy({ left: 400, behavior: "smooth" });
+            document
+              .getElementById("certs-slider")
+              .scrollBy({ left: 300, behavior: "smooth" });
           });
 
-        // Certs Slider Drag to scroll
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        slider.addEventListener("mousedown", (e) => {
-          isDown = true;
-          startX = e.pageX - slider.offsetLeft;
-          scrollLeft = slider.scrollLeft;
-        });
-        slider.addEventListener("mouseleave", () => {
-          isDown = false;
-        });
-        slider.addEventListener("mouseup", () => {
-          isDown = false;
-        });
-        slider.addEventListener("mousemove", (e) => {
-          if (!isDown) return;
-          e.preventDefault();
-          const x = e.pageX - slider.offsetLeft;
-          const walk = (x - startX) * 2;
-          slider.scrollLeft = scrollLeft - walk;
-        });
-
-        // Custom cursor logic (Bulletproof Implementation)
         if (window.innerWidth > 768) {
           const cursorDot = document.querySelector(".cursor-dot");
           const cursorOutline = document.querySelector(".cursor-outline");
-
           let mouseX = window.innerWidth / 2;
           let mouseY = window.innerHeight / 2;
           let outlineX = mouseX;
@@ -1697,7 +1747,6 @@
               document.body.classList.add("cursor-hover");
             else document.body.classList.remove("cursor-hover");
 
-            // Quality of life: Hide circular cursor over inputs so text caret is visible
             if (e.target.closest("input") || e.target.closest("textarea")) {
               document.body.classList.add("hide-custom-cursor");
             } else {
@@ -1706,20 +1755,17 @@
           });
         }
 
-        // Smooth Scroll Setup (Fixed & Synced with GSAP)
         const lenis = new Lenis({
           lerp: 0.08,
           smoothWheel: true,
           wheelMultiplier: 1.2,
         });
-
         lenis.on("scroll", ScrollTrigger.update);
         gsap.ticker.add((time) => {
           lenis.raf(time * 1000);
         });
         gsap.ticker.lagSmoothing(0, 0);
 
-        // Handle Navbar Links Smoothly
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -1748,7 +1794,7 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         const geometry = new THREE.BufferGeometry();
-        const count = 2500;
+        const count = window.innerWidth > 768 ? 2500 : 1000; // Less particles on mobile for performance
         const positions = new Float32Array(count * 3);
         const colors = new Float32Array(count * 3);
         const colorPurple = new THREE.Color("#a855f7");
@@ -1824,7 +1870,7 @@
         gsap.utils.toArray(".gs-fade-right").forEach((elem) => {
           gsap.fromTo(
             elem,
-            { x: -50, opacity: 0 },
+            { x: -30, opacity: 0 },
             {
               x: 0,
               opacity: 1,
@@ -1837,7 +1883,7 @@
         gsap.utils.toArray(".gs-fade-left").forEach((elem) => {
           gsap.fromTo(
             elem,
-            { x: 50, opacity: 0 },
+            { x: 30, opacity: 0 },
             {
               x: 0,
               opacity: 1,
