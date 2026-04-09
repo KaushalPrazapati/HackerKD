@@ -1,0 +1,1807 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hacker KD | Cinematic Portfolio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Syncopate:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons (Phosphor) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Space Grotesk", "sans-serif"],
+              display: ["Syncopate", "sans-serif"],
+            },
+            colors: {
+              dark: "#030303",
+              brand: {
+                purple: "#a855f7",
+                cyan: "#22d3ee",
+                pink: "#ec4899",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --purple: #a855f7;
+        --dark: #030303;
+      }
+
+      body {
+        background-color: var(--dark);
+        color: #ffffff;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--dark);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--purple);
+      }
+
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .glass-hover:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(168, 85, 247, 0.4);
+        box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+      }
+      .text-glow-cyan {
+        text-shadow: 0 0 30px rgba(34, 211, 238, 0.8);
+      }
+
+      /* Cursor z-index increased significantly and animation logic updated */
+      .cursor-dot,
+      .cursor-outline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        z-index: 9999999;
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 0.2s ease;
+      }
+      .cursor-dot {
+        width: 6px;
+        height: 6px;
+        background-color: white;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s,
+          height 0.2s,
+          background-color 0.2s,
+          border-color 0.2s,
+          opacity 0.2s ease;
+      }
+      .cursor-hover .cursor-outline {
+        width: 70px;
+        height: 70px;
+        background-color: rgba(168, 85, 247, 0.15);
+        border-color: rgba(168, 85, 247, 0.8);
+      }
+      .hide-custom-cursor .cursor-dot,
+      .hide-custom-cursor .cursor-outline {
+        opacity: 0 !important;
+      }
+
+      /* Allow normal typing cursor on inputs */
+      input,
+      textarea {
+        cursor: text !important;
+      }
+
+      #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      #preloader {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition:
+          opacity 1s ease-in-out,
+          visibility 1s;
+      }
+
+      .loader-circle {
+        width: 60px;
+        height: 60px;
+        border: 2px solid transparent;
+        border-top-color: var(--purple);
+        border-right-color: var(--purple);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .project-card .project-img {
+        transition: transform 0.7s ease;
+      }
+      .project-card:hover .project-img {
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        body {
+          cursor: auto;
+        }
+        .cursor-dot,
+        .cursor-outline {
+          display: none;
+        }
+      }
+
+      .modal-hidden {
+        display: none !important;
+      }
+      .slider-container {
+        cursor: grab;
+      }
+      .slider-container:active {
+        cursor: grabbing;
+      }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-brand-purple selection:text-white">
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="loader-circle mb-8"></div>
+      <p
+        class="text-brand-purple tracking-[0.3em] text-xs uppercase font-display"
+        id="loader-text"
+      >
+        Connecting to Server
+      </p>
+      <h1
+        class="text-4xl md:text-6xl font-bold mt-4 tracking-widest font-display text-white"
+      >
+        HACKER KD
+      </h1>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- 3D Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav
+      class="fixed w-full z-40 p-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm"
+    >
+      <div
+        class="text-xl md:text-2xl font-display font-black tracking-widest text-white text-glow"
+      >
+        HACKER KD
+      </div>
+      <div
+        class="hidden md:flex gap-8 text-xs font-display tracking-widest uppercase text-gray-300"
+      >
+        <a
+          href="#about"
+          class="hover:text-brand-purple transition-colors cursor-pointer nav-link"
+          >About</a
+        >
+        <a
+          href="#skills"
+          class="hover:text-brand-purple transition-colors cursor-pointer nav-link"
+          >Skills</a
+        >
+        <a
+          href="#projects"
+          class="hover:text-brand-cyan transition-colors cursor-pointer nav-link"
+          >Work</a
+        >
+        <a
+          href="#certs"
+          class="hover:text-brand-pink transition-colors cursor-pointer nav-link"
+          >Certs</a
+        >
+        <a
+          href="#contact"
+          class="hover:text-white transition-colors cursor-pointer nav-link"
+          >Contact</a
+        >
+      </div>
+      <button class="md:hidden text-white cursor-pointer nav-link">
+        <i class="ph ph-list text-3xl"></i>
+      </button>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10">
+      <!-- HERO SECTION -->
+      <section
+        class="min-h-screen flex flex-col items-center justify-center px-4 relative pt-20"
+      >
+        <div class="text-center w-full max-w-7xl mx-auto gs-reveal">
+          <p
+            class="text-brand-purple tracking-[0.4em] text-sm md:text-md mb-4 uppercase font-display font-bold"
+          >
+            Multi-Skilled Creator
+          </p>
+
+          <h1
+            class="text-[12vw] md:text-[8vw] lg:text-[7vw] font-black tracking-tighter leading-[0.9] font-display uppercase mb-6 drop-shadow-2xl"
+          >
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500"
+              >KAUSHAL</span
+            ><br />
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-brand-cyan to-white text-glow"
+              >PRAZAPATI</span
+            >
+          </h1>
+
+          <p
+            class="text-gray-400 text-lg md:text-2xl font-light mb-12 max-w-3xl mx-auto"
+          >
+            Building Scalable Systems & Cinematic Digital Experiences.
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          >
+            <a
+              href="#projects"
+              class="magnetic-btn cursor-pointer inline-block nav-link"
+            >
+              <div
+                class="px-10 py-5 bg-white text-dark rounded-full font-bold tracking-widest uppercase text-sm hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 flex items-center gap-3"
+              >
+                Explore Work
+                <i class="ph ph-arrow-down-right font-bold text-lg"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-50 animate-bounce"
+        >
+          <div
+            class="w-[2px] h-20 bg-gradient-to-b from-brand-purple to-transparent"
+          ></div>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about" class="py-32 px-6 relative">
+        <div
+          class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center"
+        >
+          <div
+            class="gs-fade-right relative aspect-[4/5] rounded-3xl overflow-hidden glass p-4 group"
+          >
+            <div class="w-full h-full rounded-2xl overflow-hidden relative">
+              <img
+                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                alt="Kaushal 3D Avatar"
+                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"
+              ></div>
+              <div class="absolute bottom-6 left-6">
+                <h4
+                  class="text-3xl font-black text-white tracking-wider font-display"
+                >
+                  HACKER KD
+                </h4>
+                <p
+                  class="text-brand-purple tracking-widest text-sm uppercase font-bold mt-1"
+                >
+                  Experience Builder
+                </p>
+              </div>
+            </div>
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-brand-cyan/20 blur-[50px] rounded-full -z-10"
+            ></div>
+            <div
+              class="absolute bottom-0 left-0 w-32 h-32 bg-brand-purple/20 blur-[50px] rounded-full -z-10"
+            ></div>
+          </div>
+
+          <div class="gs-fade-left">
+            <h2
+              class="text-xs text-brand-purple tracking-[0.3em] uppercase mb-4 font-display font-bold"
+            >
+              01. About Me
+            </h2>
+            <h3
+              class="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight"
+            >
+              Merging logic with <br /><span
+                class="italic text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-cyan"
+                >Creative Vision.</span
+              >
+            </h3>
+            <div
+              class="space-y-6 text-gray-400 leading-relaxed font-light text-lg"
+            >
+              <p>
+                I’m Kaushal Prazapati (aka Hacker KD), a Full-Stack Developer
+                and Creative Technologist who thrives at the intersection of
+                complex coding and stunning visual design.
+              </p>
+              <p>
+                From architecting robust web applications to crafting cinematic
+                UI/UX, my goal is to solve real-world problems while delivering
+                experiences that users remember.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8">
+                <div class="flex items-center gap-4 glass p-4 rounded-xl">
+                  <i
+                    class="ph-fill ph-code block text-brand-purple text-3xl"
+                  ></i>
+                  <span class="font-bold text-white">Full-Stack Dev</span>
+                </div>
+                <div class="flex items-center gap-4 glass p-4 rounded-xl">
+                  <i
+                    class="ph-fill ph-film-strip block text-brand-cyan text-3xl"
+                  ></i>
+                  <span class="font-bold text-white">Cinematic Editor</span>
+                </div>
+                <div class="flex items-center gap-4 glass p-4 rounded-xl">
+                  <i
+                    class="ph-fill ph-paint-brush-broad block text-brand-pink text-3xl"
+                  ></i>
+                  <span class="font-bold text-white">UI/UX Design</span>
+                </div>
+                <div class="flex items-center gap-4 glass p-4 rounded-xl">
+                  <i
+                    class="ph-fill ph-lightbulb block text-yellow-500 text-3xl"
+                  ></i>
+                  <span class="font-bold text-white">Problem Solver</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS SECTION -->
+      <section
+        id="skills"
+        class="py-32 px-6 relative bg-black/40 backdrop-blur-md border-y border-white/5"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-20 gs-reveal">
+            <h2
+              class="text-xs text-brand-purple tracking-[0.3em] uppercase mb-4 font-display font-bold"
+            >
+              02. Capabilities
+            </h2>
+            <h3
+              class="text-4xl md:text-6xl font-black text-white uppercase font-display"
+            >
+              Technological Arsenal
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+              class="glass glass-hover p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-brand-purple/10 rounded-full blur-3xl group-hover:bg-brand-purple/20 transition-all"
+              ></div>
+              <i
+                class="ph-fill ph-code text-5xl text-brand-purple mb-6 block group-hover:scale-110 transition-transform"
+              ></i>
+              <h4
+                class="text-2xl font-display font-bold text-white mb-6 tracking-wide"
+              >
+                Development
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >HTML/CSS/JS</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >React.js</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Node.js</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >MongoDB</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Express.js</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >C++ / Java</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Tailwind CSS</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="glass glass-hover p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
+              style="transition-delay: 0.1s"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-brand-cyan/10 rounded-full blur-3xl group-hover:bg-brand-cyan/20 transition-all"
+              ></div>
+              <i
+                class="ph-fill ph-hard-drives text-5xl text-brand-cyan mb-6 block group-hover:scale-110 transition-transform"
+              ></i>
+              <h4
+                class="text-2xl font-display font-bold text-white mb-6 tracking-wide"
+              >
+                Backend & Security
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Cybersecurity</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Ethical Hacking</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >IAM (Access Mgt)</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >REST APIs</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Databases</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="glass glass-hover p-8 rounded-3xl relative overflow-hidden transition-all duration-500 gs-reveal cursor-pointer nav-link border border-white/10 group"
+              style="transition-delay: 0.2s"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-brand-pink/10 rounded-full blur-3xl group-hover:bg-brand-pink/20 transition-all"
+              ></div>
+              <i
+                class="ph-fill ph-video-camera text-5xl text-brand-pink mb-6 block group-hover:scale-110 transition-transform"
+              ></i>
+              <h4
+                class="text-2xl font-display font-bold text-white mb-6 tracking-wide"
+              >
+                Creative & AI
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Generative AI</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Photography</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Video Editing</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >Cinematography</span
+                >
+                <span
+                  class="px-3 py-1 text-xs text-gray-300 border border-white/10 rounded-full bg-white/5"
+                  >UI/UX Design</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS SECTION (Dynamic) -->
+      <section id="projects" class="py-32 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+          <div
+            class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6 gs-reveal"
+          >
+            <div>
+              <h2
+                class="text-xs text-brand-cyan tracking-[0.3em] uppercase mb-4 font-display font-bold"
+              >
+                03. Selected Work
+              </h2>
+              <h3
+                class="text-4xl md:text-6xl font-black text-white uppercase font-display"
+              >
+                Real Projects
+              </h3>
+            </div>
+            <p class="text-gray-400 font-light max-w-sm text-lg">
+              Functional systems built for scale, performance, and real
+              businesses.
+            </p>
+          </div>
+
+          <div
+            id="projects-grid"
+            class="grid grid-cols-1 lg:grid-cols-2 gap-10"
+          >
+            <!-- Projects injected via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATIONS SECTION -->
+      <section
+        id="certs"
+        class="py-32 px-6 relative bg-black/60 border-y border-white/5"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div
+            class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 gs-reveal"
+          >
+            <div>
+              <h2
+                class="text-xs text-brand-pink tracking-[0.3em] uppercase mb-4 font-display font-bold"
+              >
+                04. Verified Expertise
+              </h2>
+              <h3
+                class="text-4xl md:text-6xl font-black text-white uppercase font-display"
+              >
+                Certifications
+              </h3>
+            </div>
+            <div class="flex gap-2">
+              <button
+                id="scroll-left"
+                class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors nav-link"
+              >
+                <i class="ph ph-caret-left text-xl"></i>
+              </button>
+              <button
+                id="scroll-right"
+                class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors nav-link"
+              >
+                <i class="ph ph-caret-right text-xl"></i>
+              </button>
+            </div>
+          </div>
+
+          <div
+            id="certs-slider"
+            class="slider-container flex overflow-x-auto gap-6 pb-10 hide-scrollbar snap-x snap-mandatory scroll-smooth w-full"
+          >
+            <!-- Certs injected via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section
+        id="contact"
+        class="py-32 px-6 relative bg-gradient-to-b from-transparent to-black border-t border-white/5"
+      >
+        <div class="max-w-4xl mx-auto text-center gs-reveal">
+          <h2
+            class="text-xs text-brand-purple tracking-[0.3em] uppercase mb-4 font-display font-bold"
+          >
+            05. What's Next?
+          </h2>
+          <h3
+            class="text-5xl md:text-7xl font-black text-white tracking-tight uppercase font-display"
+          >
+            LET'S BUILD <br /><span
+              class="text-glow text-brand-purple italic font-light"
+              >IMPACT.</span
+            >
+          </h3>
+
+          <!-- NEW CONTACT FORM -->
+          <form
+            id="contactForm"
+            class="glass p-8 md:p-12 rounded-3xl text-left mt-16 space-y-6 max-w-3xl mx-auto relative group overflow-hidden"
+            onsubmit="submitContactForm(event)"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-tr from-brand-purple/5 to-brand-cyan/5 opacity-50 z-0 pointer-events-none"
+            ></div>
+            <div class="relative z-10">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label
+                    class="text-xs text-gray-400 tracking-widest uppercase mb-2 block"
+                    >Your Name</label
+                  >
+                  <input
+                    type="text"
+                    id="contactName"
+                    required
+                    class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="text-xs text-gray-400 tracking-widest uppercase mb-2 block"
+                    >Your Email</label
+                  >
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    required
+                    class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
+                    placeholder="john@example.com"
+                  />
+                </div>
+              </div>
+              <div class="mb-8">
+                <label
+                  class="text-xs text-gray-400 tracking-widest uppercase mb-2 block"
+                  >Message</label
+                >
+                <textarea
+                  id="contactMessage"
+                  required
+                  rows="4"
+                  class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white focus:border-brand-purple focus:ring-1 focus:ring-brand-purple outline-none transition-all placeholder-gray-600"
+                  placeholder="How can we collaborate?"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                id="submitBtn"
+                class="w-full py-4 bg-gradient-to-r from-brand-purple to-brand-cyan text-black font-bold tracking-widest uppercase rounded-xl hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-all flex justify-center items-center gap-2"
+              >
+                Send Message <i class="ph ph-paper-plane-tilt text-xl"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Text vali details kadhi nakhi chhe, badhu icons ma muki didhu chhe -->
+          <div
+            class="mt-20 flex justify-center gap-4 md:gap-8 flex-wrap gs-reveal"
+          >
+            <a
+              href="https://github.com/KaushalPrazapati"
+              target="_blank"
+              class="text-gray-500 hover:text-white transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+              ><i class="ph ph-github-logo text-3xl"></i
+            ></a>
+            <a
+              href="https://instagram.com/hackerkd"
+              target="_blank"
+              class="text-gray-500 hover:text-[#E1306C] transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(225,48,108,0.3)]"
+              ><i class="ph ph-instagram-logo text-3xl"></i
+            ></a>
+            <a
+              href="https://wa.me/919471640485"
+              target="_blank"
+              class="text-gray-500 hover:text-[#25D366] transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(37,211,102,0.3)]"
+              ><i class="ph ph-whatsapp-logo text-3xl"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/kaushalprazapati/"
+              target="_blank"
+              class="text-gray-500 hover:text-[#0A66C2] transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(10,102,194,0.3)]"
+              ><i class="ph ph-linkedin-logo text-3xl"></i
+            ></a>
+            <!-- Navu Email Icon Umeriyu -->
+            <a
+              href="mailto:kaushalprazapati@gmail.com"
+              target="_blank"
+              class="text-gray-500 hover:text-brand-purple transition-all p-5 glass rounded-full hover:scale-110 nav-link hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+              ><i class="ph ph-envelope-simple text-3xl"></i
+            ></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer
+        class="py-10 text-center text-xs text-gray-600 tracking-widest uppercase font-display bg-black flex flex-col items-center justify-center gap-4"
+      >
+        <p>
+          © <span id="year"></span> Hacker KD (Kaushal Prazapati). All rights
+          reserved.
+        </p>
+        <button
+          onclick="window.openAdminLogin()"
+          class="text-gray-800 hover:text-gray-500 transition-colors nav-link"
+        >
+          Admin System Access
+        </button>
+      </footer>
+    </main>
+
+    <!-- ADMIN PANEL MODALS -->
+
+    <!-- Login Modal -->
+    <div
+      id="adminLoginModal"
+      class="fixed inset-0 bg-black/90 z-[10001] flex items-center justify-center modal-hidden backdrop-blur-md"
+    >
+      <div class="glass p-8 rounded-2xl w-full max-w-sm text-center">
+        <h3 class="text-2xl font-display font-bold text-white mb-6">
+          System Access
+        </h3>
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="Enter Password"
+          class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white mb-4 focus:outline-none focus:border-brand-purple"
+        />
+        <p class="text-xs text-gray-500 mb-6">
+          (Hint: Password is 'kaushal2026')
+        </p>
+        <div class="flex gap-4">
+          <button
+            onclick="window.closeAdminLogin()"
+            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400 hover:bg-white/5"
+          >
+            Cancel
+          </button>
+          <button
+            onclick="window.verifyAdmin()"
+            class="flex-1 p-3 rounded-lg bg-brand-purple text-white font-bold hover:bg-brand-purple/80"
+          >
+            Login
+          </button>
+        </div>
+        <p id="loginError" class="text-red-500 text-xs mt-4 hidden">
+          Access Denied.
+        </p>
+      </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div
+      id="adminDashboard"
+      class="fixed inset-0 bg-black/95 z-[10002] modal-hidden flex flex-col backdrop-blur-xl overflow-y-auto"
+    >
+      <div class="max-w-6xl w-full mx-auto p-6 md:p-12">
+        <div
+          class="flex justify-between items-center mb-8 border-b border-white/10 pb-6"
+        >
+          <div>
+            <h2 class="text-3xl font-display font-bold text-white">
+              Admin Dashboard
+            </h2>
+            <p class="text-brand-cyan text-sm tracking-widest uppercase mt-2">
+              Manage Data & Messages
+            </p>
+          </div>
+          <button
+            onclick="window.closeAdminDashboard()"
+            class="text-gray-400 hover:text-white p-2 glass rounded-full"
+          >
+            <i class="ph ph-x text-2xl"></i>
+          </button>
+        </div>
+
+        <!-- Tab Buttons (Added Messages Tab) -->
+        <div class="flex flex-wrap gap-4 mb-8">
+          <button
+            onclick="window.switchAdminTab('projects')"
+            id="tab-projects"
+            class="px-6 py-2 bg-brand-purple text-white rounded-lg font-bold"
+          >
+            Projects
+          </button>
+          <button
+            onclick="window.switchAdminTab('certs')"
+            id="tab-certs"
+            class="px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold"
+          >
+            Certifications
+          </button>
+          <button
+            onclick="window.switchAdminTab('messages')"
+            id="tab-messages"
+            class="px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold relative"
+          >
+            Inquiries
+            <span
+              id="msgCountBadge"
+              class="absolute -top-2 -right-2 bg-brand-cyan text-black text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold hidden"
+              >0</span
+            >
+          </button>
+        </div>
+
+        <!-- Projects Panel -->
+        <div id="panel-projects">
+          <h3 class="text-xl font-bold text-white mb-4">Manage Projects</h3>
+          <div id="admin-projects-list" class="space-y-4"></div>
+        </div>
+
+        <!-- Certs Panel -->
+        <div id="panel-certs" class="hidden">
+          <h3 class="text-xl font-bold text-white mb-4">
+            Manage Certifications
+          </h3>
+          <div id="admin-certs-list" class="space-y-4"></div>
+        </div>
+
+        <!-- Messages Panel -->
+        <div id="panel-messages" class="hidden">
+          <h3 class="text-xl font-bold text-white mb-4">
+            Contact Form Submissions
+          </h3>
+          <div id="admin-messages-list" class="space-y-4">
+            <!-- Messages will appear here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Project Modal -->
+    <div
+      id="editProjectModal"
+      class="fixed inset-0 bg-black/95 z-[10003] flex items-center justify-center modal-hidden"
+    >
+      <div
+        class="glass p-8 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+      >
+        <h3 class="text-2xl font-display font-bold text-white mb-6">
+          Edit Project
+        </h3>
+        <input type="hidden" id="edit-id" />
+        <input type="hidden" id="edit-fbid" />
+        <div class="space-y-4">
+          <input
+            type="text"
+            id="edit-title"
+            placeholder="Title"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+          />
+          <input
+            type="text"
+            id="edit-category"
+            placeholder="Category"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+          />
+          <input
+            type="text"
+            id="edit-link"
+            placeholder="Live Link URL"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+          />
+          <input
+            type="text"
+            id="edit-image"
+            placeholder="Image URL"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+          />
+          <input
+            type="text"
+            id="edit-tech"
+            placeholder="Tech Stack (comma separated)"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+          />
+          <textarea
+            id="edit-desc"
+            rows="4"
+            placeholder="Description"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-purple"
+          ></textarea>
+        </div>
+        <div class="flex gap-4 mt-6">
+          <button
+            onclick="window.closeEditModal('editProjectModal')"
+            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400"
+          >
+            Cancel
+          </button>
+          <button
+            onclick="window.saveProject()"
+            class="flex-1 p-3 rounded-lg bg-brand-cyan text-black font-bold"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Cert Modal -->
+    <div
+      id="editCertModal"
+      class="fixed inset-0 bg-black/95 z-[10003] flex items-center justify-center modal-hidden"
+    >
+      <div
+        class="glass p-8 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto"
+      >
+        <h3 class="text-2xl font-display font-bold text-white mb-6">
+          Edit Certification
+        </h3>
+        <input type="hidden" id="edit-cert-id" />
+        <input type="hidden" id="edit-cert-fbid" />
+        <div class="space-y-4">
+          <input
+            type="text"
+            id="edit-cert-title"
+            placeholder="Certificate Title"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-pink"
+          />
+          <input
+            type="text"
+            id="edit-cert-issuer"
+            placeholder="Issuer (e.g. HackerRank)"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-pink"
+          />
+          <input
+            type="text"
+            id="edit-cert-image"
+            placeholder="Image URL (Link to your screenshot)"
+            class="w-full bg-black/50 border border-white/20 rounded-lg p-3 text-white focus:border-brand-pink"
+          />
+        </div>
+        <div class="flex gap-4 mt-6">
+          <button
+            onclick="window.closeEditModal('editCertModal')"
+            class="flex-1 p-3 rounded-lg border border-white/10 text-gray-400"
+          >
+            Cancel
+          </button>
+          <button
+            onclick="window.saveCert()"
+            class="flex-1 p-3 rounded-lg bg-brand-pink text-white font-bold"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
+
+    <!-- FIREBASE INITIALIZATION & LOGIC -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        addDoc,
+        updateDoc,
+        deleteDoc,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      // Your Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyALc7Jy_KMmNtNaJFhB3Aq65S8RuhRlANU",
+        authDomain: "hackerkd.firebaseapp.com",
+        projectId: "hackerkd",
+        storageBucket: "hackerkd.firebasestorage.app",
+        messagingSenderId: "210781702286",
+        appId: "1:210781702286:web:f15076141378900c9961df",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Global State
+      window.portfolioState = {
+        projects: [],
+        certs: [],
+        messages: [],
+      };
+
+      // Fallback Default Data (Only uploads if DB is completely empty)
+      const defaultProjects = [
+        {
+          id: 1,
+          title: "Foto Taker",
+          category: "Photography Portfolio",
+          link: "https://fototaker.in/",
+          image: "https://i.ibb.co/KpKPJV1m/Foto-Taker.webp",
+          tech: ["HTML5", "CSS3", "Vanilla JS", "Responsive"],
+          desc: "A visually immersive portfolio website designed specifically for a photography business.",
+        },
+        {
+          id: 2,
+          title: "Comfy Core",
+          category: "Modern E-Commerce",
+          link: "https://comfycore.vercel.app/",
+          image: "https://i.ibb.co/BpqpXtw/Comfy.webp",
+          tech: ["HTML5", "Custom CSS3", "Vanilla JS", "Vercel"],
+          desc: "A sleek and fully functional e-commerce platform built for a modern brand.",
+        },
+        {
+          id: 3,
+          title: "Prince Dry Cleaners",
+          category: "Local Service Business",
+          link: "https://princedrycleaners.vercel.app/",
+          image: "https://i.ibb.co/Df1RL1xW/Prince.webp",
+          tech: ["HTML5", "CSS3", "JavaScript", "WhatsApp API"],
+          desc: "A lead-generation website tailored for a local dry cleaning business.",
+        },
+        {
+          id: 4,
+          title: "Vrindavan Library",
+          category: "Institutional Portal",
+          link: "https://vrindavanlibrary.vercel.app/",
+          image: "https://i.ibb.co/WNRCb7nk/Vrindavan.webp",
+          tech: ["HTML5", "CSS3", "Vanilla JS", "Semantic Web"],
+          desc: "A digital portal designed for an educational institution.",
+        },
+        {
+          id: 5,
+          title: "Personal Portfolio",
+          category: "MERN Stack Web",
+          link: "#",
+          image:
+            "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
+          tech: ["React", "Node.js", "MongoDB", "Express"],
+          desc: "A modern, responsive portfolio website built with the MERN stack.",
+        },
+        {
+          id: 6,
+          title: "SkillCraft Academy",
+          category: "Responsive Landing",
+          link: "#",
+          image:
+            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
+          tech: ["HTML", "CSS Flexbox", "JavaScript"],
+          desc: "Modern responsive landing page for an internship provider, built with mobile-first approach.",
+        },
+        {
+          id: 7,
+          title: "TimeFlow Stopwatch",
+          category: "Utility App",
+          link: "#",
+          image:
+            "https://images.unsplash.com/photo-1508050919630-b135583b29c6?q=80&w=800&auto=format&fit=crop",
+          tech: ["HTML", "CSS", "JavaScript"],
+          desc: "Sleek and precise stopwatch application featuring lap timing.",
+        },
+      ];
+
+      const defaultCerts = [
+        {
+          id: 1,
+          title: "Cybersecurity Analyst",
+          issuer: "Tata Consultancy Services (TCS)",
+          image:
+            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
+        },
+        {
+          id: 2,
+          title: "Generative AI",
+          issuer: "Microsoft & LinkedIn",
+          image:
+            "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop",
+        },
+        {
+          id: 3,
+          title: "Artificial Intelligence",
+          issuer: "LinkedIn",
+          image:
+            "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=800&auto=format&fit=crop",
+        },
+        {
+          id: 4,
+          title: "Microsoft 365 Copilot",
+          issuer: "LinkedIn",
+          image:
+            "https://images.unsplash.com/photo-1633412802994-5c058f151b66?q=80&w=800&auto=format&fit=crop",
+        },
+        {
+          id: 5,
+          title: "Java (Basic)",
+          issuer: "HackerRank",
+          image:
+            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop",
+        },
+        {
+          id: 6,
+          title: "Responsive Web Design",
+          issuer: "FreeCodeCamp",
+          image:
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop",
+        },
+      ];
+
+      async function initData() {
+        try {
+          // Fetch Projects
+          const pSnap = await getDocs(collection(db, "projects"));
+          if (pSnap.empty) {
+            for (const p of defaultProjects) {
+              const docRef = doc(db, "projects", p.id.toString());
+              await setDoc(docRef, p);
+              window.portfolioState.projects.push({ fbId: docRef.id, ...p });
+            }
+          } else {
+            window.portfolioState.projects = pSnap.docs.map((d) => ({
+              fbId: d.id,
+              ...d.data(),
+            }));
+            window.portfolioState.projects.sort((a, b) => a.id - b.id);
+          }
+
+          // Fetch Certs
+          const cSnap = await getDocs(collection(db, "certs"));
+          if (cSnap.empty) {
+            for (const c of defaultCerts) {
+              const docRef = doc(db, "certs", c.id.toString());
+              await setDoc(docRef, c);
+              window.portfolioState.certs.push({ fbId: docRef.id, ...c });
+            }
+          } else {
+            window.portfolioState.certs = cSnap.docs.map((d) => ({
+              fbId: d.id,
+              ...d.data(),
+            }));
+            window.portfolioState.certs.sort((a, b) => a.id - b.id);
+          }
+
+          // Fetch Messages
+          const mSnap = await getDocs(collection(db, "messages"));
+          window.portfolioState.messages = mSnap.docs.map((d) => ({
+            fbId: d.id,
+            ...d.data(),
+          }));
+          window.portfolioState.messages.sort((a, b) => b.id - a.id);
+
+          if (window.portfolioState.messages.length > 0) {
+            document.getElementById("msgCountBadge").innerText =
+              window.portfolioState.messages.length;
+            document.getElementById("msgCountBadge").classList.remove("hidden");
+          }
+        } catch (error) {
+          console.error("Firebase Error. Falling back to local data.", error);
+          window.portfolioState.projects = [...defaultProjects];
+          window.portfolioState.certs = [...defaultCerts];
+        }
+
+        renderProjects();
+        renderCerts();
+
+        const loader = document.getElementById("preloader");
+        loader.style.opacity = "0";
+        setTimeout(() => {
+          loader.style.display = "none";
+          initGSAP();
+        }, 1000);
+      }
+
+      // Render functions attached to window for scope
+      window.renderProjects = function () {
+        const container = document.getElementById("projects-grid");
+        container.innerHTML = "";
+
+        window.portfolioState.projects.forEach((proj, index) => {
+          const delay = (index % 2) * 0.1;
+          const techBadges = proj.tech
+            .map(
+              (t) =>
+                `<span class="px-3 py-1 text-[10px] uppercase font-bold text-white border border-white/20 rounded-full bg-black/50 backdrop-blur-md whitespace-nowrap">${t.trim()}</span>`,
+            )
+            .join("");
+
+          const html = `
+                    <div class="project-card glass rounded-3xl overflow-hidden flex flex-col h-full gs-reveal nav-link group cursor-pointer border border-white/10 hover:border-brand-cyan/50 transition-all duration-500" style="transition-delay: ${delay}s" onclick="window.open('${proj.link}', '_blank')">
+                        <div class="relative h-64 md:h-80 overflow-hidden w-full bg-black">
+                            <img src="${proj.image}" alt="${proj.title}" class="project-img w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                            <div class="absolute top-6 left-6 flex items-center gap-2">
+                                <span class="bg-brand-cyan text-black text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded-full shadow-lg">${proj.category}</span>
+                            </div>
+                            <div class="absolute top-6 right-6 w-10 h-10 rounded-full glass flex items-center justify-center text-white group-hover:bg-brand-cyan group-hover:text-black group-hover:scale-110 transition-all duration-300">
+                                <i class="ph ph-arrow-up-right text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow relative z-10 bg-gradient-to-b from-black to-dark">
+                            <h4 class="text-3xl font-display font-bold text-white mb-4 group-hover:text-brand-cyan transition-colors">${proj.title}</h4>
+                            <p class="text-gray-400 font-light mb-8 text-sm leading-relaxed">${proj.desc}</p>
+                            <div class="flex flex-wrap gap-2 mt-auto pt-6 border-t border-white/10">
+                                ${techBadges}
+                            </div>
+                        </div>
+                    </div>
+                `;
+          container.innerHTML += html;
+        });
+        if (typeof ScrollTrigger !== "undefined") {
+          ScrollTrigger.refresh();
+        }
+      };
+
+      window.renderCerts = function () {
+        const container = document.getElementById("certs-slider");
+        container.innerHTML = "";
+
+        window.portfolioState.certs.forEach((cert) => {
+          const html = `
+                    <div class="min-w-[300px] md:min-w-[380px] snap-center glass rounded-2xl p-4 border border-white/10 group hover:border-brand-pink/50 transition-all cursor-pointer">
+                        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-black relative mb-4">
+                            <img src="${cert.image}" alt="${cert.title}" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl"></div>
+                        </div>
+                        <h4 class="text-lg font-bold text-white font-display tracking-wide group-hover:text-brand-pink transition-colors">${cert.title}</h4>
+                        <p class="text-xs text-gray-400 mt-1 flex items-center uppercase tracking-wider font-bold"><i class="ph-fill ph-check-circle text-brand-cyan mr-2"></i> ${cert.issuer}</p>
+                    </div>
+                `;
+          container.innerHTML += html;
+        });
+      };
+
+      window.submitContactForm = async function (e) {
+        e.preventDefault();
+        const btn = document.getElementById("submitBtn");
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = "Sending...";
+
+        const newMsg = {
+          id: Date.now(),
+          name: document.getElementById("contactName").value,
+          email: document.getElementById("contactEmail").value,
+          message: document.getElementById("contactMessage").value,
+          date: new Date().toLocaleString(),
+        };
+
+        try {
+          const docRef = await addDoc(collection(db, "messages"), newMsg);
+          window.portfolioState.messages.unshift({
+            fbId: docRef.id,
+            ...newMsg,
+          });
+
+          const badge = document.getElementById("msgCountBadge");
+          badge.innerText = window.portfolioState.messages.length;
+          badge.classList.remove("hidden");
+
+          e.target.reset();
+          btn.innerHTML =
+            '<i class="ph-fill ph-check-circle text-2xl"></i> Sent!';
+          btn.classList.replace("from-brand-purple", "from-green-500");
+          btn.classList.replace("to-brand-cyan", "to-emerald-500");
+
+          setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.classList.replace("from-green-500", "from-brand-purple");
+            btn.classList.replace("to-emerald-500", "to-brand-cyan");
+          }, 3000);
+
+          if (
+            !document
+              .getElementById("adminDashboard")
+              .classList.contains("modal-hidden")
+          ) {
+            window.renderAdminMessages();
+          }
+        } catch (err) {
+          console.error(err);
+          btn.innerHTML = "Error!";
+          setTimeout(() => (btn.innerHTML = originalHTML), 2000);
+        }
+      };
+
+      window.renderAdminLists = function () {
+        const pContainer = document.getElementById("admin-projects-list");
+        pContainer.innerHTML = "";
+        window.portfolioState.projects.forEach((proj) => {
+          pContainer.innerHTML += `
+                    <div class="glass p-4 rounded-xl flex justify-between items-center border border-white/10">
+                        <div class="flex items-center gap-4">
+                            <img src="${proj.image}" class="w-16 h-12 object-cover rounded shadow">
+                            <div><h4 class="text-white font-bold">${proj.title}</h4><p class="text-xs text-gray-500">${proj.category}</p></div>
+                        </div>
+                        <button onclick="window.openEditProject(${proj.id})" class="px-4 py-2 bg-white/10 hover:bg-brand-cyan hover:text-black text-white rounded-lg text-sm transition-colors"><i class="ph ph-pencil-simple mr-2"></i> Edit</button>
+                    </div>`;
+        });
+
+        const cContainer = document.getElementById("admin-certs-list");
+        cContainer.innerHTML = "";
+        window.portfolioState.certs.forEach((cert) => {
+          cContainer.innerHTML += `
+                    <div class="glass p-4 rounded-xl flex justify-between items-center border border-white/10">
+                        <div class="flex items-center gap-4">
+                            <img src="${cert.image}" class="w-16 h-12 object-cover rounded shadow">
+                            <div><h4 class="text-white font-bold">${cert.title}</h4><p class="text-xs text-gray-500">${cert.issuer}</p></div>
+                        </div>
+                        <button onclick="window.openEditCert(${cert.id})" class="px-4 py-2 bg-white/10 hover:bg-brand-pink text-white rounded-lg text-sm transition-colors"><i class="ph ph-pencil-simple mr-2"></i> Edit</button>
+                    </div>`;
+        });
+
+        window.renderAdminMessages();
+      };
+
+      window.renderAdminMessages = function () {
+        const mContainer = document.getElementById("admin-messages-list");
+        mContainer.innerHTML = "";
+
+        if (window.portfolioState.messages.length === 0) {
+          mContainer.innerHTML =
+            '<p class="text-gray-500 italic p-4 glass rounded-xl border border-white/5">No messages received yet.</p>';
+          return;
+        }
+
+        window.portfolioState.messages.forEach((m) => {
+          mContainer.innerHTML += `
+                    <div class="glass p-5 rounded-xl border border-white/10 mb-4 relative group">
+                        <div class="flex justify-between items-start mb-3">
+                            <div><h4 class="text-white font-bold text-lg">${m.name}</h4><a href="mailto:${m.email}" class="text-xs text-brand-cyan hover:underline">${m.email}</a></div>
+                            <span class="text-xs text-gray-500">${m.date}</span>
+                        </div>
+                        <p class="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed">${m.message}</p>
+                        <button onclick="window.deleteMessage('${m.fbId}')" class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-400 transition-opacity bg-black/50 p-2 rounded-lg"><i class="ph ph-trash text-lg"></i></button>
+                    </div>`;
+        });
+      };
+
+      window.deleteMessage = async function (fbId) {
+        if (confirm("Are you sure you want to delete this inquiry?")) {
+          try {
+            await deleteDoc(doc(db, "messages", fbId));
+            window.portfolioState.messages =
+              window.portfolioState.messages.filter((m) => m.fbId !== fbId);
+            window.renderAdminMessages();
+            const badge = document.getElementById("msgCountBadge");
+            badge.innerText = window.portfolioState.messages.length;
+            if (window.portfolioState.messages.length === 0)
+              badge.classList.add("hidden");
+          } catch (e) {
+            console.error("Error deleting", e);
+          }
+        }
+      };
+
+      window.switchAdminTab = function (tab) {
+        document
+          .getElementById("panel-projects")
+          .classList.toggle("hidden", tab !== "projects");
+        document
+          .getElementById("panel-certs")
+          .classList.toggle("hidden", tab !== "certs");
+        document
+          .getElementById("panel-messages")
+          .classList.toggle("hidden", tab !== "messages");
+
+        document.getElementById("tab-projects").className =
+          tab === "projects"
+            ? "px-6 py-2 bg-brand-purple text-white rounded-lg font-bold"
+            : "px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold";
+        document.getElementById("tab-certs").className =
+          tab === "certs"
+            ? "px-6 py-2 bg-brand-purple text-white rounded-lg font-bold"
+            : "px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold";
+
+        const msgTab = document.getElementById("tab-messages");
+        msgTab.className =
+          tab === "messages"
+            ? "px-6 py-2 bg-brand-purple text-white rounded-lg font-bold relative"
+            : "px-6 py-2 bg-white/10 text-gray-400 hover:text-white rounded-lg font-bold relative";
+      };
+
+      window.openAdminLogin = function () {
+        document
+          .getElementById("adminLoginModal")
+          .classList.remove("modal-hidden");
+      };
+      window.closeAdminLogin = function () {
+        document
+          .getElementById("adminLoginModal")
+          .classList.add("modal-hidden");
+      };
+
+      window.verifyAdmin = function () {
+        if (document.getElementById("adminPassword").value === "kaushal2026") {
+          window.closeAdminLogin();
+          document
+            .getElementById("adminDashboard")
+            .classList.remove("modal-hidden");
+          window.renderAdminLists();
+        } else {
+          document.getElementById("loginError").classList.remove("hidden");
+        }
+      };
+      window.closeAdminDashboard = function () {
+        document.getElementById("adminDashboard").classList.add("modal-hidden");
+      };
+
+      window.openEditProject = function (id) {
+        const p = window.portfolioState.projects.find((x) => x.id === id);
+        document.getElementById("edit-id").value = p.id;
+        document.getElementById("edit-fbid").value = p.fbId || "";
+        document.getElementById("edit-title").value = p.title;
+        document.getElementById("edit-category").value = p.category;
+        document.getElementById("edit-link").value = p.link;
+        document.getElementById("edit-image").value = p.image;
+        document.getElementById("edit-tech").value = p.tech.join(", ");
+        document.getElementById("edit-desc").value = p.desc;
+        document
+          .getElementById("editProjectModal")
+          .classList.remove("modal-hidden");
+      };
+
+      window.openEditCert = function (id) {
+        const c = window.portfolioState.certs.find((x) => x.id === id);
+        document.getElementById("edit-cert-id").value = c.id;
+        document.getElementById("edit-cert-fbid").value = c.fbId || "";
+        document.getElementById("edit-cert-title").value = c.title;
+        document.getElementById("edit-cert-issuer").value = c.issuer;
+        document.getElementById("edit-cert-image").value = c.image;
+        document
+          .getElementById("editCertModal")
+          .classList.remove("modal-hidden");
+      };
+
+      window.closeEditModal = function (modalId) {
+        document.getElementById(modalId).classList.add("modal-hidden");
+      };
+
+      window.saveProject = async function () {
+        const id = parseInt(document.getElementById("edit-id").value);
+        const fbId = document.getElementById("edit-fbid").value;
+        const idx = window.portfolioState.projects.findIndex(
+          (p) => p.id === id,
+        );
+
+        if (idx !== -1) {
+          const pData = {
+            id: id,
+            title: document.getElementById("edit-title").value,
+            category: document.getElementById("edit-category").value,
+            link: document.getElementById("edit-link").value,
+            image: document.getElementById("edit-image").value,
+            tech: document
+              .getElementById("edit-tech")
+              .value.split(",")
+              .map((t) => t.trim()),
+            desc: document.getElementById("edit-desc").value,
+          };
+
+          try {
+            if (fbId) await updateDoc(doc(db, "projects", fbId), pData);
+            window.portfolioState.projects[idx] = { fbId, ...pData };
+            window.renderProjects();
+            window.renderAdminLists();
+            window.closeEditModal("editProjectModal");
+          } catch (e) {
+            console.error("Error saving project", e);
+          }
+        }
+      };
+
+      window.saveCert = async function () {
+        const id = parseInt(document.getElementById("edit-cert-id").value);
+        const fbId = document.getElementById("edit-cert-fbid").value;
+        const idx = window.portfolioState.certs.findIndex((c) => c.id === id);
+
+        if (idx !== -1) {
+          const cData = {
+            id: id,
+            title: document.getElementById("edit-cert-title").value,
+            issuer: document.getElementById("edit-cert-issuer").value,
+            image: document.getElementById("edit-cert-image").value,
+          };
+
+          try {
+            if (fbId) await updateDoc(doc(db, "certs", fbId), cData);
+            window.portfolioState.certs[idx] = { fbId, ...cData };
+            window.renderCerts();
+            window.renderAdminLists();
+            window.closeEditModal("editCertModal");
+          } catch (e) {
+            console.error("Error saving cert", e);
+          }
+        }
+      };
+
+      // Initialize Everything
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Start Firebase Sync
+        initData();
+
+        // Slider controls
+        const slider = document.getElementById("certs-slider");
+        document.getElementById("scroll-left").addEventListener("click", () => {
+          slider.scrollBy({ left: -400, behavior: "smooth" });
+        });
+        document
+          .getElementById("scroll-right")
+          .addEventListener("click", () => {
+            slider.scrollBy({ left: 400, behavior: "smooth" });
+          });
+
+        // Slider Drag to scroll
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        slider.addEventListener("mousedown", (e) => {
+          isDown = true;
+          startX = e.pageX - slider.offsetLeft;
+          scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener("mouseleave", () => {
+          isDown = false;
+        });
+        slider.addEventListener("mouseup", () => {
+          isDown = false;
+        });
+        slider.addEventListener("mousemove", (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - slider.offsetLeft;
+          const walk = (x - startX) * 2;
+          slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Custom cursor logic (Bulletproof Implementation)
+        if (window.innerWidth > 768) {
+          const cursorDot = document.querySelector(".cursor-dot");
+          const cursorOutline = document.querySelector(".cursor-outline");
+
+          let mouseX = window.innerWidth / 2;
+          let mouseY = window.innerHeight / 2;
+          let outlineX = mouseX;
+          let outlineY = mouseY;
+
+          window.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+          });
+
+          function animateCursor() {
+            outlineX += (mouseX - outlineX) * 0.2;
+            outlineY += (mouseY - outlineY) * 0.2;
+            cursorOutline.style.transform = `translate(calc(${outlineX}px - 50%), calc(${outlineY}px - 50%))`;
+            requestAnimationFrame(animateCursor);
+          }
+          animateCursor();
+
+          document.body.addEventListener("mouseover", (e) => {
+            if (
+              e.target.closest(".nav-link") ||
+              e.target.closest("button") ||
+              e.target.closest("a")
+            )
+              document.body.classList.add("cursor-hover");
+            else document.body.classList.remove("cursor-hover");
+
+            // Quality of life: Hide circular cursor over inputs so text caret is visible
+            if (e.target.closest("input") || e.target.closest("textarea")) {
+              document.body.classList.add("hide-custom-cursor");
+            } else {
+              document.body.classList.remove("hide-custom-cursor");
+            }
+          });
+        }
+
+        // Smooth Scroll Setup (Fixed & Synced with GSAP)
+        const lenis = new Lenis({
+          lerp: 0.08,
+          smoothWheel: true,
+          wheelMultiplier: 1.2,
+        });
+
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // Handle Navbar Links Smoothly
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            lenis.scrollTo(this.getAttribute("href"), { duration: 1.2 });
+          });
+        });
+
+        initThreeJS();
+      });
+
+      function initThreeJS() {
+        const canvas = document.getElementById("bg-canvas");
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000,
+        );
+        const renderer = new THREE.WebGLRenderer({
+          canvas: canvas,
+          alpha: true,
+          antialias: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const geometry = new THREE.BufferGeometry();
+        const count = 2500;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+        const colorPurple = new THREE.Color("#a855f7");
+        const colorCyan = new THREE.Color("#22d3ee");
+
+        for (let i = 0; i < count * 3; i += 3) {
+          positions[i] = (Math.random() - 0.5) * 20;
+          positions[i + 1] = (Math.random() - 0.5) * 20;
+          positions[i + 2] = (Math.random() - 0.5) * 10;
+          const mixedColor = colorPurple.clone().lerp(colorCyan, Math.random());
+          colors[i] = mixedColor.r;
+          colors[i + 1] = mixedColor.g;
+          colors[i + 2] = mixedColor.b;
+        }
+
+        geometry.setAttribute(
+          "position",
+          new THREE.BufferAttribute(positions, 3),
+        );
+        geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+          size: 0.02,
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.6,
+          blending: THREE.AdditiveBlending,
+        });
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+        camera.position.z = 5;
+
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener("mousemove", (e) => {
+          mouseX = (e.clientX - window.innerWidth / 2) * 0.001;
+          mouseY = (e.clientY - window.innerHeight / 2) * 0.001;
+        });
+
+        const clock = new THREE.Clock();
+        function animate() {
+          requestAnimationFrame(animate);
+          const time = clock.getElapsedTime();
+          particles.rotation.y = time * 0.03;
+          particles.rotation.x = time * 0.01;
+          particles.rotation.y += 0.05 * (mouseX - particles.rotation.y);
+          particles.rotation.x += 0.05 * (mouseY - particles.rotation.x);
+          renderer.render(scene, camera);
+        }
+        animate();
+        window.addEventListener("resize", () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      }
+
+      function initGSAP() {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray(".gs-reveal").forEach((elem) => {
+          gsap.fromTo(
+            elem,
+            { y: 50, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: { trigger: elem, start: "top 85%" },
+            },
+          );
+        });
+        gsap.utils.toArray(".gs-fade-right").forEach((elem) => {
+          gsap.fromTo(
+            elem,
+            { x: -50, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: { trigger: elem, start: "top 85%" },
+            },
+          );
+        });
+        gsap.utils.toArray(".gs-fade-left").forEach((elem) => {
+          gsap.fromTo(
+            elem,
+            { x: 50, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: { trigger: elem, start: "top 85%" },
+            },
+          );
+        });
+      }
+    </script>
+  </body>
+</html>
